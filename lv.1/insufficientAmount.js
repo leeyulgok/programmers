@@ -27,9 +27,9 @@ console.log(solution(3, 20, 4));
 console.log(solution(3, 31, 4));
 
 // 가우스 공식(등차수열의 합 계산)
-// sum = n / 2 (2a + ( n - 1) d);
-// n은 항의 수, a는 첫번 째 항, d는 공차.
-// 이 문제에서 n은 count, a와 d는 price
+// sum = (a + b) * (b - a + 1) / 2;
+// a는 첫 번째 항, b는 마지막 항
+// 이 문제에서 a은 price, b는 price * count
 
 function solution2(price, money, count) {
   // 등차수열의 합 계산
