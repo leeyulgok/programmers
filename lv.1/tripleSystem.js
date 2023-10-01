@@ -26,7 +26,7 @@ console.log(solution(45));
 console.log(solution(125));
 
 // 효율적인 풀이
-// toString(3)를 활용한 3진법 변환
+// toString(3)를 활용한 3진법 변환과 parseInt의 두 번째 인자를 통해 3진법임을 알림
 const solution2 = (n) => {
   return parseInt([...n.toString(3)].reverse().join(""), 3);
 };
