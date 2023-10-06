@@ -5,10 +5,12 @@
 const NUMLIST = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 // 배열 섞은 함수
+// 피셔-에이츠 셔플 사용. 배열을 무작위로 섞는 역할
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]]; // 배열 요소 스왑
+    // 배열 디스트럭처링
+    [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
 }
@@ -38,6 +40,7 @@ function checkBingo(board, userNumbers) {
 
   let matchCount = 0;
   for (let line of bingoLines) {
+    // 라인에 값이 있는지 확인(boolean)
     if (line.every((index) => userNumbers.includes(board[index]))) {
       matchCount++;
     }
