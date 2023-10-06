@@ -30,7 +30,7 @@ function rollDice() {
 // 상품 선택 함수
 function seletePrize(currentPosition, diceValue) {
   let newPosition = (currentPosition + diceValue) % 16;
-  return {prizes: prizes[newPosition], position: newPosition};
+  return {prize: prizes[newPosition], position: newPosition};
 }
 
 // 게임 실행 함수
@@ -42,7 +42,7 @@ function playGame(rollTimes) {
     let diceValue = rollDice();
     let result =  seletePrize(currentPosition, diceValue);
     
-    obtainedPrizes.push(result.prizes);
+    obtainedPrizes.push(result.prize);
     currentPosition = result.position;
   }
 
