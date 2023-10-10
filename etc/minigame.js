@@ -27,3 +27,16 @@ function createBoard() {
 }
 
 console.log(createBoard());
+
+// 유저 공격
+function createAttackPattern() {
+  const BOARD_SIZE = 3;
+  
+  let attack = Array(BOARD_SIZE)
+    .fill(null)
+    .map(() => Array(BOARD_SIZE).fill("x"));
+
+  return attack.map((row) => row.join(" ")).join("\n");
+}
+
+console.log(userAttack());
