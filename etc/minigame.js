@@ -1,4 +1,5 @@
 // 효율적으로 공격하기
+const readline = require("readline");
 
 // 판 만들고 적 배치하기
 function createBoard() {
@@ -26,12 +27,10 @@ function createBoard() {
   return board;
 }
 
-console.log(createBoard());
-
 // 유저 공격
 function createAttackPattern() {
   const BOARD_SIZE = 3;
-  
+
   let attack = Array(BOARD_SIZE)
     .fill(null)
     .map(() => Array(BOARD_SIZE).fill("x"));
@@ -39,4 +38,29 @@ function createAttackPattern() {
   return attack.map((row) => row.join(" ")).join("\n");
 }
 
-console.log(userAttack());
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+let board = createBoard();
+
+const playGame = (preResult = "") => {
+  const Massege = `${board}
+  적이 생성되었습니다. 공격을 통해 적을 물리치세요. 남은 적 : 5`;
+
+  if(preResult) {
+    Massege = preResult;
+  }
+
+  rl.question(Massege, (answer) => {
+    let result = checkAttack();
+    if(result === 0) {
+      rl.close();
+    } else {
+      playGame(result);
+    }
+  });
+};
+
+playGame();
