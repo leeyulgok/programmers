@@ -44,18 +44,36 @@ function checkAttack(board) {
     .split("\n")
     .map((row) => row.split(" "));
 
-  for (let i = 0; i < BOARD_SIZE; i++) {
-    for (let j = 0; j < BOARD_SIZE; j++) {
-      if (board[i][j] === "O") {
-        for (let x = 0; x < 3 && i + x < BOARD_SIZE; x++) {
-          for (let y = 0; y < 3 && j + y < BOARD_SIZE; y++) {
+  let attacked = false;
+
+  for (let i = 0; i < BOARD_SIZE - 2; i++) {
+    for (let j = 0; j < BOARD_SIZE - 2; j++) {
+      let applyAttack = false;
+
+      if (attacked) break;
+
+      for (let x = 0; x < 3; x++) {
+        for (let y = 0; y < 3; y++) {
+          if (board[i + x][j + y] === "O" && attackPattern[x][y] === "x") {
+            applyAttack = true;
+            break;
+          }
+        }
+        if (applyAttack) break;
+      }
+
+      if (applyAttack) {
+        for (let x = 0; x < 3; x++) {
+          for (let y = 0; y < 3; y++) {
             if (attackPattern[x][y] === "x") {
               board[i + x][j + y] = "x";
             }
           }
         }
+        attacked = true; // 공격이 발생하면 attacked를 true로 설정
       }
     }
+    if (attacked) break;
   }
 
   const remainingOs = board.flat().filter((cell) => cell === "O").length;
@@ -73,21 +91,35 @@ const rl = readline.createInterface({
 });
 
 let board = createBoard();
+const displayBoard = (board) => board.map((row) => row.join(" ")).join("\n");
 
 const playGame = (preResult = "") => {
-  const Massege = `${board}
-  적이 생성되었습니다. 공격을 통해 적을 물리치세요. 남은 적 : 5`;
+  let Message = `${displayBoard(board)}
+적이 생성되었습니다. 공격을 통해 적을 물리치세요. 남은 적 : 5
+공격하기(Y/N) : `;
 
   if (preResult) {
-    Massege = preResult;
+    Message = `${displayBoard(board)}\n${preResult}\n공격하기(Y/N) : `;
   }
 
-  rl.question(Massege, (answer) => {
-    let result = checkAttack();
-    if (result === 0) {
+  rl.question(Message, (answer) => {
+    if (answer.toLowerCase() === "y") {
+      const result = checkAttack(board);
+      board = result.board.split("\n").map((row) => row.split(" "));
+
+      if (result.remaining === 0) {
+        console.log(`${result.board}
+        모든 적이 제거되었습니다! 게임을 종료합니다.`);
+        rl.close();
+      } else {
+        playGame(`남은 적: ${result.remaining}`);
+      }
+    } else if (answer.toLowerCase() === "n") {
+      console.log("게임을 종료합니다.");
       rl.close();
     } else {
-      playGame(result);
+      console.log("잘못된 입력입니다. 다시 입력해주세요.");
+      playGame(preResult);
     }
   });
 };
