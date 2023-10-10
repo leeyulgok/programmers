@@ -23,7 +23,6 @@ function createBoard() {
     emptyPositions.splice(randomIndex, 1);
   }
 
-  board = board.map((row) => row.join(" ")).join("\n");
   return board;
 }
 
@@ -38,6 +37,36 @@ function createAttackPattern() {
   return attack.map((row) => row.join(" ")).join("\n");
 }
 
+// 유저 공격 확인
+function checkAttack(board) {
+  const BOARD_SIZE = 5;
+  const attackPattern = createAttackPattern()
+    .split("\n")
+    .map((row) => row.split(" "));
+
+  for (let i = 0; i < BOARD_SIZE; i++) {
+    for (let j = 0; j < BOARD_SIZE; j++) {
+      if (board[i][j] === "O") {
+        for (let x = 0; x < 3 && i + x < BOARD_SIZE; x++) {
+          for (let y = 0; y < 3 && j + y < BOARD_SIZE; y++) {
+            if (attackPattern[x][y] === "x") {
+              board[i + x][j + y] = "x";
+            }
+          }
+        }
+      }
+    }
+  }
+
+  const remainingOs = board.flat().filter((cell) => cell === "O").length;
+  const displayBoard = board.map((row) => row.join(" ")).join("\n");
+
+  return {
+    board: displayBoard,
+    remaining: remainingOs,
+  };
+}
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -49,13 +78,13 @@ const playGame = (preResult = "") => {
   const Massege = `${board}
   적이 생성되었습니다. 공격을 통해 적을 물리치세요. 남은 적 : 5`;
 
-  if(preResult) {
+  if (preResult) {
     Massege = preResult;
   }
 
   rl.question(Massege, (answer) => {
     let result = checkAttack();
-    if(result === 0) {
+    if (result === 0) {
       rl.close();
     } else {
       playGame(result);
