@@ -1,10 +1,9 @@
 // 폰켓몬
-//
 
 function solution(nums) {
   const takeNum = nums.length / 2;
   let hashMap = {};
-  
+
   for (const poketmon of nums) {
     hashMap[poketmon] = true;
   }
