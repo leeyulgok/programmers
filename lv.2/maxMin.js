@@ -4,13 +4,25 @@
 // 예를들어 s가 "1 2 3 4"라면 "1 4"를 리턴하고, "-1 -2 -3 -4"라면 "-4 -1"을 리턴하면 됩니다.
 
 function solution(s) {
-  let arrNum = s.split(" ").map(x => Number(x)).sort((a, b) => a - b);
+  let arrNum = s
+    .split(" ")
+    .map((x) => Number(x))
+    .sort((a, b) => a - b);
   const max = arrNum[0];
   const min = arrNum[arrNum.length - 1];
   let answer = `${max.toString()} ${min.toString()}`;
   return answer;
-};
+}
 
 console.log(solution("1 2 3 4"));
 console.log(solution("-1 -2 -3 -4"));
 
+// 효율적인 풀이
+
+function solution2(s) {
+  const arr = s.split(" ");
+  return Math.min(...arr) + ' ' +Math.max(...arr);
+}
+
+console.log(solution2("1 2 3 4"));
+console.log(solution2("-1 -2 -3 -4"));
