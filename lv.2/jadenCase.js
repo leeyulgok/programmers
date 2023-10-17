@@ -24,3 +24,11 @@ function solution(s) {
 
 console.log(solution("3people unFollowed me"));
 console.log(solution("for the last week"));
+
+// 효율적인 풀이
+function solution2(s) {
+  return s
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
