@@ -31,20 +31,29 @@ console.log(solution(15));
 
 // 효율적인 풀이
 
-function solution(n) {
-  let count = 0;
-  let end = Math.ceil(n / 2);
+function solution2(n) {
+  let start = 1,
+    end = 1,
+    sum = 1,
+    count = 0;
 
-  for (let i = 1; i <= end; i++) {
-    let sum = 0;
-    for (let j = i; sum < n; j++) {
-      sum += j;
-      if (sum === n) {
-        count++;
-        break;
-      }
+  while (start <= Math.floor(n / 2)) {
+    if (sum < n) {
+      end++;
+      sum += end;
+    } else if (sum > n) {
+      sum -= start;
+      start++;
+    } else {
+      count++;
+      end++;
+      sum += end;
+      sum -= start;
+      start++;
     }
   }
 
   return count + 1;
 }
+
+console.log(solution2(15));
