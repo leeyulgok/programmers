@@ -28,3 +28,23 @@ function solution(n) {
 }
 
 console.log(solution(15));
+
+// 효율적인 풀이
+
+function solution(n) {
+  let count = 0;
+  let end = Math.ceil(n / 2);
+
+  for (let i = 1; i <= end; i++) {
+    let sum = 0;
+    for (let j = i; sum < n; j++) {
+      sum += j;
+      if (sum === n) {
+        count++;
+        break;
+      }
+    }
+  }
+
+  return count + 1;
+}
