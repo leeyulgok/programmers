@@ -31,3 +31,19 @@ function solution(s) {
 
 console.log(solution("baabaa"));
 console.log(solution("cdcd"));
+
+// 효율적인 풀이
+function solution2(s) {
+  const stack = [];
+  for (let char of s) {
+    if (stack.length && stack[stack.length - 1] === char) {
+      stack.pop();
+    } else {
+      stack.push(char);
+    }
+  }
+  return stack.length === 0 ? 1 : 0;
+}
+
+console.log(solution2("baabaa"));
+console.log(solution2("cdcd"));
