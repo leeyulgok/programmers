@@ -47,3 +47,37 @@ function solution(s) {
 console.log(solution("one4seveneight"));
 console.log(solution("23four5six7"));
 console.log(solution("one0zero0"));
+
+// 효율적인 풀이
+
+function solution2(s) {
+  const hashMap = {
+    zero: "0",
+    one: "1",
+    two: "2",
+    three: "3",
+    four: "4",
+    five: "5",
+    six: "6",
+    seven: "7",
+    eight: "8",
+    nine: "9",
+  };
+
+  let answer = "";
+  let temp = "";
+
+  for (const str of s) {
+    if (str >= "0" && str <= "9") {
+      answer += str;
+    } else {
+      temp += str;
+      if (hashMap[temp]) {
+        answer += hashMap[temp];
+        temp = "";
+      }
+    }
+  }
+
+  return Number(answer);
+}
