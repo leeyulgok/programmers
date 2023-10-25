@@ -83,12 +83,11 @@ console.log(
 // 효율적인 풀이
 function solution(n, words) {
   let usedWords = new Set();
-  let lastChar = words[0][0]; // 첫 단어의 첫 문자로 초기화
+  let lastChar = words[0][0];
 
   for (let i = 0; i < words.length; i++) {
     const word = words[i];
 
-    // 이미 사용된 단어이거나 끝말잇기 규칙이 어긋나면
     if (usedWords.has(word) || word[0] !== lastChar) {
       return [(i % n) + 1, Math.floor(i / n) + 1];
     }
