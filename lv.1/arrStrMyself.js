@@ -23,6 +23,8 @@ function solution(strings, n) {
   return answer;
 }
 
+// 효율적인 풀이
+
 console.log(solution(["sun", "bed", "car"], 1));
 console.log(solution(["abce", "abcd", "cdx"], 2));
 
