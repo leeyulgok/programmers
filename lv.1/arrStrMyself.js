@@ -14,14 +14,26 @@ function solution(strings, n) {
   }
   str.sort();
   strings.sort();
-  for(let i = 0; i < str.length; i++) {
-    for(const word of strings) {
-      if(word[n] === str[i] && !answer.includes(word)) answer.push(word);
+  for (let i = 0; i < str.length; i++) {
+    for (const word of strings) {
+      if (word[n] === str[i] && !answer.includes(word)) answer.push(word);
     }
   }
-  
+
   return answer;
 }
 
 console.log(solution(["sun", "bed", "car"], 1));
 console.log(solution(["abce", "abcd", "cdx"], 2));
+
+function solution2(strings, n) {
+  return strings.sort((a, b) => {
+    if (a[n] === b[n]) {
+      return a.localeCompare(b);
+    }
+    return a[n].localeCompare(b[n]);
+  });
+}
+
+console.log(solution2(["sun", "bed", "car"], 1));
+console.log(solution2(["abce", "abcd", "cdx"], 2));
