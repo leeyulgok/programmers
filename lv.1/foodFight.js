@@ -16,19 +16,19 @@
 
 function solution(foods) {
   let ableFoods = foods.map((x, i) => {
-    if(i !== 0 && x !== 1) {
-      return x;  
+    if (i !== 0 && x !== 1) {
+      return x;
     } else {
       return false;
     }
   });
 
-  let answer = '';
-  for(let i = 0; i < ableFoods.length; i++) {
-    if(ableFoods[i] % 2 === 0) {
-      answer += (i).toString().repeat(ableFoods[i] / 2);
+  let answer = "";
+  for (let i = 0; i < ableFoods.length; i++) {
+    if (ableFoods[i] % 2 === 0) {
+      answer += i.toString().repeat(ableFoods[i] / 2);
     } else {
-      answer += (i).toString().repeat(Math.floor(ableFoods[i] / 2));
+      answer += i.toString().repeat(Math.floor(ableFoods[i] / 2));
     }
   }
 
@@ -37,3 +37,14 @@ function solution(foods) {
 
 console.log(solution([1, 3, 4, 6]));
 console.log(solution([1, 7, 1, 2]));
+
+// 효율적인 풀이
+
+function solution(food) {
+  let res = "";
+  for (let i = 1; i < food.length; i++) {
+    res += String(i).repeat(Math.floor(food[i] / 2));
+  }
+
+  return res + "0" + [...res].reverse().join("");
+}
