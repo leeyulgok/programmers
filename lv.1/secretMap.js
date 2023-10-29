@@ -14,23 +14,46 @@
 function solution(n, arr1, arr2) {
   let answer = [];
 
-  for(let i = 0; i < n; i++) {
+  for (let i = 0; i < n; i++) {
     let str = (arr1[i] | arr2[i]).toString(2);
-    if(str.length !== n) {
-      while(str.length < n) {
-        str = "0" + str
+    if (str.length !== n) {
+      while (str.length < n) {
+        str = "0" + str;
       }
-    };
-    
-    str = str.split("").map(char => {
-      return char === "1" ? "#" : " ";
-    }).join("");
+    }
+
+    str = str
+      .split("")
+      .map((char) => {
+        return char === "1" ? "#" : " ";
+      })
+      .join("");
     answer.push(str);
   }
-
 
   return answer;
 }
 
 console.log(solution(5, [9, 20, 28, 18, 11], [30, 1, 21, 17, 28]));
-console.log(solution(6, [46, 33, 33 ,22, 31, 50], [27 ,56, 19, 14, 14, 10]));
+console.log(solution(6, [46, 33, 33, 22, 31, 50], [27, 56, 19, 14, 14, 10]));
+
+// 효율적인 풀이
+
+function solution2(n, arr1, arr2) {
+  let answer = [];
+
+  for (let i = 0; i < n; i++) {
+    let str = (arr1[i] | arr2[i]).toString(2).padStart(n, "0");
+
+    str = str
+      .split("")
+      .map((char) => (char === "1" ? "#" : " "))
+      .join("");
+    answer.push(str);
+  }
+
+  return answer;
+}
+
+console.log(solution2(5, [9, 20, 28, 18, 11], [30, 1, 21, 17, 28]));
+console.log(solution2(6, [46, 33, 33, 22, 31, 50], [27, 56, 19, 14, 14, 10]));
